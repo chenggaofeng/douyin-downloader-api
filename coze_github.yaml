@@ -1,0 +1,148 @@
+openapi: 3.0.0
+info:
+  title: 抖音视频下载器
+  description: 输入抖音分享链接，获取无水印视频下载链接或直接下载视频到本地
+  version: 1.0.0
+  contact:
+    name: AI Assistant
+    email: support@example.com
+
+servers:
+  - url: https://your-project.vercel.app
+    description: Vercel部署服务器（请替换为您的实际Vercel地址）
+  - url: https://your-project.netlify.app
+    description: Netlify部署服务器（请替换为您的实际Netlify地址）
+  - url: https://your-project.railway.app
+    description: Railway部署服务器（请替换为您的实际Railway地址）
+
+paths:
+  /get_download_link:
+    post:
+      summary: 获取抖音视频的无水印下载链接
+      description: 通过抖音分享链接获取视频的无水印下载地址
+      operationId: getDownloadLink
+      tags:
+        - 抖音下载
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - share_link
+              properties:
+                share_link:
+                  type: string
+                  description: 抖音分享链接，支持短链接和完整链接
+                  example: https://v.douyin.com/M2IF10d0tOM/
+      responses:
+        '200':
+          description: 成功获取下载链接
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  video_id:
+                    type: string
+                    description: 视频唯一标识ID
+                  title:
+                    type: string
+                    description: 视频标题
+                  download_url:
+                    type: string
+                    description: 无水印视频下载链接
+                  description:
+                    type: string
+                    description: 获取方式描述
+                  usage_tip:
+                    type: string
+                    description: 使用提示
+        '400':
+          description: 请求参数错误
+        '404':
+          description: 视频不存在或已被删除
+        '500':
+          description: 服务器内部错误
+
+  /download_video:
+    post:
+      summary: 直接下载抖音视频到本地
+      description: 通过抖音分享链接直接下载视频到服务器本地存储
+      operationId: downloadVideo
+      tags:
+        - 抖音下载
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - share_link
+              properties:
+                share_link:
+                  type: string
+                  description: 抖音分享链接
+                  example: https://v.douyin.com/M2IF10d0tOM/
+                filename:
+                  type: string
+                  description: 自定义文件名（可选），不包含扩展名
+                  example: 我的抖音视频
+      responses:
+        '200':
+          description: 视频下载成功
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: 下载状态消息
+                  file_path:
+                    type: string
+                    description: 文件保存的完整路径
+                  filename:
+                    type: string
+                    description: 保存的文件名
+                  file_size:
+                    type: string
+                    description: 文件大小
+                  title:
+                    type: string
+                    description: 视频标题
+        '400':
+          description: 请求参数错误
+        '404':
+          description: 视频不存在或已被删除
+        '500':
+          description: 服务器内部错误
+
+components:
+  schemas:
+    DownloadLinkRequest:
+      type: object
+      required:
+        - share_link
+      properties:
+        share_link:
+          type: string
+          description: 抖音分享链接
+    
+    DownloadVideoRequest:
+      type: object
+      required:
+        - share_link
+      properties:
+        share_link:
+          type: string
+          description: 抖音分享链接
+        filename:
+          type: string
+          description: 自定义文件名（可选）
+
+tags:
+  - name: 抖音下载
+    description: 抖音视频下载相关接口
