@@ -1,0 +1,31 @@
+{
+  "project_name": "抖音视频下载器API",
+  "version": "1.0.0",
+  "created_at": "2025-01-05",
+  "deployment_platforms": {
+    "vercel": {
+      "config_file": "vercel.json",
+      "url_template": "https://your-project.vercel.app",
+      "recommended": true
+    },
+    "netlify": {
+      "config_file": "netlify.toml",
+      "url_template": "https://your-project.netlify.app",
+      "recommended": false
+    },
+    "railway": {
+      "config_file": "main.py",
+      "url_template": "https://your-project.railway.app",
+      "recommended": false
+    }
+  },
+  "coze_config": "coze_github.yaml",
+  "instructions": [
+    "1. 创建GitHub仓库并上传github_deploy目录中的所有文件",
+    "2. 选择部署平台（推荐Vercel）",
+    "3. 在部署平台中导入GitHub仓库",
+    "4. 获取部署后的HTTPS地址",
+    "5. 更新coze_github.yaml中的服务器地址",
+    "6. 在扣子平台导入更新后的YAML文件"
+  ]
+}
