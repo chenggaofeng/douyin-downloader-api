@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+requests = "*"
+openpyxl = "*"
+urllib3 = "*"
+certifi = "*"
+charset-normalizer = "*"
+idna = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.9"
